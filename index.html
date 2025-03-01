@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Style Fashion Showcase</title>
+   
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        .tiktok-embed {
+            max-width: 325px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            z-index: 1000;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Video Carousel */
+        .carousel-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-poster {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            transition: opacity 0.5s ease;
+        }
+
+        .video-player {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Slide Elements */
+        .slide-description {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            max-width: 80%;
+            text-align: center;
+            z-index: 3;
+        }
+
+        .indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 4;
+        }
+
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background: #fff;
+            transform: scale(1.3);
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            z-index: 4;
+        }
+
+        /* Parallax Section */
+        .parallax {
+            height: 100vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+
+            .slide-description {
+                font-size: 0.9rem;
+                bottom: 15%;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="mobile-menu">☰</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Video Carousel -->
+    <div class="carousel-container" id="home">
+        <div class="slide-counter">1/3</div>
+        
+        <!-- Video Slides -->
+         
+        <div class="carousel-slide active">
+            <div class="video-wrapper">
+                <img src="./img/image1.jpg" class="video-poster" alt="Video Poster">
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@shwenantaw27/video/7474497368700898568" data-video-id="7474497368700898568" > 
+                        <section>         
+                        </section>
+                     </blockquote>  <script async src="https://www.tiktok.com/embed.js"></script>
+            </div>
+            <div class="slide-description">Winter Collection</div>
+        </div>
+
+        <div class="carousel-slide">
+            <div class="video-wrapper">
+                <img src="./img/image2.jpg" class="video-poster" alt="Video Poster">
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@design.gdb/video/7473376317669461253" data-video-id="7473376317669461253" >  
+                        <section>         
+                        </section>
+                     </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+            </div>
+            <div class="slide-description">Winter Collection</div>
+        </div>
+
+
+        <div class="carousel-slide">
+            <div class="video-wrapper">
+                <img src="./img/image3.jpg" class="video-poster" alt="Video Poster">
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@shwenantaw27/video/7474497368700898568" data-video-id="7474497368700898568" > 
+                        <section>         
+                        </section>
+                     </blockquote>  <script async src="https://www.tiktok.com/embed.js"></script>
+            </div>
+            <div class="slide-description">Winter Collection</div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="carousel-slide">
+            <div class="video-wrapper">
+                <img src="poster3.jpg" class="video-poster" alt="Video Poster">
+                <video class="video-player" muted playsinline>
+                    <source src="./vd/vd3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="slide-description">Accessories Showcase</div>
+        </div>
+
+        <!-- Indicators -->
+        <div class="indicators"></div>
+    </div>
+
+    <!-- Parallax Sections -->
+    <div class="parallax" style="background-image: url('parallax1.jpg');">
+        <h2 style="color: #fff; text-shadow: 2px 2px 5px rgba(0,0,0,0.5);">New Arrivals</h2>
+    </div>
+
+    <section id="about" class="parallax" style="background-image: url('parallax2.jpg');">
+        <div style="background: rgba(255,255,255,0.9); padding: 2rem; border-radius: 15px;">
+            <h2>About Us</h2>
+            <p>Premium fashion experiences since 2010</p>
+        </div>
+    </section>
+
+    <script>
+        // Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const videos = document.querySelectorAll('.video-player');
+        const posters = document.querySelectorAll('.video-poster');
+        const indicators = document.querySelector('.indicators');
+        const counter = document.querySelector('.slide-counter');
+
+        // Create Indicators
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'indicator-dot';
+            if(index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => changeSlide(index));
+            indicators.appendChild(dot);
+        });
+
+        function changeSlide(n) {
+            // Hide current slide
+            slides[currentSlide].classList.remove('active');
+            videos[currentSlide].pause();
+            posters[currentSlide].style.opacity = 1;
+
+            // Show new slide
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            
+            // Start video after 1 second
+            setTimeout(() => {
+                posters[currentSlide].style.opacity = 0;
+                videos[currentSlide].play().catch(error => console.log('Autoplay blocked'));
+            }, 1000);
+
+            // Update UI
+            document.querySelectorAll('.indicator-dot').forEach(dot => 
+                dot.classList.remove('active'));
+            indicators.children[currentSlide].classList.add('active');
+            counter.textContent = `${currentSlide + 1}/${slides.length}`;
+        }
+
+        // Auto-play and Parallax
+        window.addEventListener('load', () => {
+            // Start first video
+            setTimeout(() => {
+                posters[0].style.opacity = 0;
+                videos[0].play();
+            }, 1000);
+
+            // Auto-advance every 10 seconds
+            setInterval(() => changeSlide(currentSlide + 1), 10000);
+
+            // Parallax Effect
+            window.addEventListener('scroll', () => {
+                document.querySelectorAll('.parallax').forEach(element => {
+                    const scrolled = window.pageYOffset;
+                    element.style.backgroundPositionY = `${scrolled * 0.5}px`;
+                });
+            });
+        });
+
+        // Mobile Menu
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Video Click Control
+        videos.forEach(video => {
+            video.addEventListener('click', () => {
+                if(video.paused) {
+                    video.play();
+                    video.previousElementSibling.style.opacity = 0;
+                } else {
+                    video.pause();
+                    video.previousElementSibling.style.opacity = 1;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
