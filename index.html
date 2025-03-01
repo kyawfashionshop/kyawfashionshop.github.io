@@ -1,41 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kyaw Fashion Shop</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        header { background: #fff; padding: 10px; text-align: center; }
-        .video-container { position: relative; width: 100%; height: 100vh; overflow: hidden; }
-        .video-container video { width: 100%; height: 100%; object-fit: cover; }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; }
-        .cta-button { background: #ff4757; color: #fff; padding: 15px 30px; border: none; cursor: pointer; font-size: 18px; }
-        .about-section { background: linear-gradient(to right, #1e3c72, #2a5298); color: #fff; padding: 50px 20px; text-align: center; }
-        footer { background: #333; color: #fff; text-align: center; padding: 20px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fashion Store</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #793fff;
+      z-index: 1000;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: 50px;
+      margin-right: 10px;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+    }
+    .nav-links li {
+      margin: 0 0.5rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .mobile-menu {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    /* Carousel */
+    .carousel-container {
+      position: relative;
+      width: 100vw;
+      height: calc(100vw * 16 / 9);
+      max-height: 100vh;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+    .carousel-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: all 1s ease-in-out;
+      transform: scale(0.9);
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Slide Description */
+    .slide-description {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 80%;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      transition: 0.5s ease;
+    }
+    /* Slide Indicators */
+    .indicators {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    .indicator-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .indicator-dot.active {
+      background: white;
+      transform: scale(1.3);
+    }
+    /* Slide Counter */
+    .slide-counter {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      z-index: 100;
+    }
+    /* Parallax Section */
+    .parallax {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Gallery Section */
+    #gallery {
+      padding: 2rem;
+      background: #f7f7f7;
+      text-align: center;
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .mobile-menu {
+        display: block;
+      }
+      .slide-description {
+        bottom: 15%;
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+    .hd1 {
+      color: white;
+    }
+    /* CSS Animated Banner (replacing marquee) */
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      background: #793fff;
+      color: white;
+      padding: 0.5rem 0;
+      font-size: 1rem;
+      text-align: center;
+      position: fixed;
+      top: 60px;
+      z-index: 999;
+    }
+    .marquee p {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 10s linear infinite;
+    }
+    @keyframes marquee {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <img src="IMG_5326.png" alt="Kyaw Fashion Shop Logo" width="150">
-    </header>
-    <div class="video-container">
-        <video autoplay muted loop>
-            <source src="https://youtube.com/shorts/K5lPbZFLSPU?si=WC4H4wilvezfB8or" type="video/mp4">
-        </video>
-        <video autoplay muted loop>
-            <source src="https://youtube.com/shorts/2mgINi7Svzc?si=vPU_WDr2kejqe6kH" type="video/mp4">
-        </video>
-        <div class="overlay">
-            <button class="cta-button">Shop Now</button>
-        </div>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <img src="./img/IMG_5326.png" alt="Kyaw Fashion Shop Logo" />
+      <h1><span class="hd1">Kyaw Fashion Shop</span></h1>
     </div>
-    <div class="about-section">
-        <h2>About Kyaw Fashion Shop</h2>
-        <p>Welcome to Kyaw Fashion Shop, your one-stop destination for the latest trends in fashion.</p>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+    </ul>
+    <div class="mobile-menu">☰</div>
+  </nav>
+  <!-- CSS Animated Banner -->
+  <div class="marquee">
+    <p>Welcome to Kyaw Fashion Shop</p>
+  </div>
+
+  <!-- Carousel -->
+  <div class="carousel-container" id="home">
+    <div class="slide-counter"></div>
+    <!-- Slides -->
+    <div class="carousel-slide active">
+      <img src="./img/image1.jpg" alt="Summer Collection" />
+      <div class="slide-description">2023 Summer Collection</div>
     </div>
-    <footer>
-        <p>© 2025 Kyaw Fashion Shop. All rights reserved.</p>
-    </footer>
+    <div class="carousel-slide">
+      <img src="./img/image2.jpg" alt="Winter Collection" />
+      <div class="slide-description">Winter Essentials</div>
+    </div>
+    <div class="carousel-slide">
+      <img src="./img/image3.jpg" alt="Accessories" />
+      <div class="slide-description">Luxury Accessories</div>
+    </div>
+    <div class="carousel-slide">
+      <img src="./img/image4.jpg" alt="New Collection" />
+      <div class="slide-description">Shwe Chan Moe</div>
+    </div>
+    <!-- Indicators -->
+    <div class="indicators"></div>
+  </div>
+
+  <!-- Parallax Section -->
+  <div class="parallax" style="background-image: url('parallax-bg.jpg');">
+    <h2 style="color: white; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">
+      New Arrivals
+    </h2>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="parallax" style="background-image: url('about-bg.jpg');">
+    <div style="background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 10px;">
+      <h2>About Us</h2>
+      <p>Premium fashion since 2010</p>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <p>Sample gallery content here. Add images or product showcases as needed.</p>
+  </section>
+
+  <script>
+    // Carousel Logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicatorsContainer = document.querySelector('.indicators');
+    const slideCounter = document.querySelector('.slide-counter');
+
+    // Initialize slide counter
+    slideCounter.textContent = `${currentSlide + 1}/${slides.length}`;
+
+    // Create Indicators
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.classList.add('indicator-dot');
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => showSlide(index));
+      indicatorsContainer.appendChild(dot);
+    });
+
+    function showSlide(n) {
+      // Update Slides
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+
+      // Update Indicators
+      document.querySelectorAll('.indicator-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+
+      // Update Counter
+      slideCounter.textContent = `${currentSlide + 1}/${slides.length}`;
+    }
+
+    // Auto Slide every 5 seconds
+    setInterval(() => showSlide(currentSlide + 1), 5000);
+
+    // Parallax Effect
+    window.addEventListener('scroll', () => {
+      const parallaxElements = document.querySelectorAll('.parallax');
+      parallaxElements.forEach(element => {
+        const scrolled = window.pageYOffset;
+        element.style.backgroundPositionY = `${-(scrolled * 0.3)}px`;
+      });
+    });
+
+    // Mobile Menu Toggle
+    document.querySelector('.mobile-menu').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    // Smooth Scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+        // Hide nav-links on mobile after clicking
+        if (window.innerWidth <= 768) {
+          document.querySelector('.nav-links').classList.remove('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
