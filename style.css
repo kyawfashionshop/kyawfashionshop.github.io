@@ -67,10 +67,27 @@ nav {
     font-size: 1.5rem;
 }
 
+/* Website Description Marquee */
+.marquee {
+    margin-top: 0px; /* Adjust for fixed nav */
+    background: #ffffff;
+    color: rgb(241, 15, 15);
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee p {
+    display: inline-block;
+    padding-left: 30%; /* Start off-screen */
+    animation: marquee 30s linear infinite;
+}
+
 @keyframes marquee {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
 }
+
 /* Hero Section */
 .hero {
     padding: 0rem 2rem;
@@ -186,6 +203,20 @@ footer p {
     .mobile-menu {
         display: block;
     }
+
+    .slider {
+        height: calc(100vw * 16 / 9); /* Maintain 9:16 aspect ratio */
+    }
+
+    .slide-description {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .marquee p {
+        font-size: 0.9rem;
+    }
+
     .map-container {
         height: 200px;
     }
@@ -193,5 +224,10 @@ footer p {
         align-content: center;
         width: 80%;
         height: 100%;
+    }
+    .slider-slide iframe{
+        width: 100%;
+        height: 100%;
+        border: none;
     }
 }
